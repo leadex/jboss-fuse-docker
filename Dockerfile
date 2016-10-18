@@ -4,8 +4,8 @@ FROM jboss/base-jdk:7
 MAINTAINER Hiram Chirino <hchirino@redhat.com>
 
 # Set the FUSE_VERSION env variable
-ENV FUSE_VERSION 6.2.0.redhat-059
-
+ENV FUSE_VERSION 6.3.0.redhat-187
+ENV FUSE_ARTIFACT_ID jboss-fuse-karaf
 # If the container is launched with re-mapped ports, these ENV vars should
 # be set to the remapped values.
 ENV FUSE_PUBLIC_OPENWIRE_PORT 61616
@@ -18,7 +18,9 @@ ENV FUSE_PUBLIC_AMQP_SSL_PORT 5671
 ENV FUSE_PUBLIC_STOMP_SSL_PORT 61614
 
 # Install fuse in the image.
+COPY ${FUSE_ARTIFACT_ID}-${FUSE_VERSION}.zip /opt/jboss/${FUSE_ARTIFACT_ID}-${FUSE_VERSION}.zip
 COPY install.sh /opt/jboss/install.sh
+user root
 RUN /opt/jboss/install.sh
 
 EXPOSE 8181 8101 1099 44444 61616 1883 5672 61613 61617 8883 5671 61614
@@ -33,4 +35,6 @@ VOLUME /opt/jboss/jboss-fuse/deploy
 
 # lets default to the jboss-fuse dir so folks can more easily navigate to around the server install
 WORKDIR /opt/jboss/jboss-fuse
+
+COPY users.properties /opt/jboss/jboss-fuse/etc/
 CMD /opt/jboss/jboss-fuse/bin/fuse server
