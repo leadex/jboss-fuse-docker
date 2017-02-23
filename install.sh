@@ -19,7 +19,7 @@ cd /opt/jboss
 #curl -O ${FUSE_DISTRO_URL}
 jar -xvf ${FUSE_ARTIFACT_ID}-${FUSE_VERSION}.zip
 rm ${FUSE_ARTIFACT_ID}-${FUSE_VERSION}.zip
-mv jboss-fuse-${FUSE_VERSION} jboss-fuse
+mv ${FUSE_ARTIFACT_ID}-${FUSE_VERSION} jboss-fuse
 chmod a+x jboss-fuse/bin/*
 rm jboss-fuse/bin/*.bat jboss-fuse/bin/start jboss-fuse/bin/stop jboss-fuse/bin/status jboss-fuse/bin/patch
 
@@ -47,28 +47,28 @@ export KARAF_OPTS="-Dkaraf.name=${FUSE_KARAF_NAME} -Druntime.id=${FUSE_RUNTIME_I
 #
 # Move the bundle cache and tmp directories outside of the data dir so it's not persisted between container runs
 #
-mv jboss-fuse/data/tmp jboss-fuse/tmp
-echo '
-org.osgi.framework.storage=${karaf.base}/tmp/cache
-'>> jboss-fuse/etc/config.properties
-sed -i -e 's/-Djava.io.tmpdir="$KARAF_DATA\/tmp"/-Djava.io.tmpdir="$KARAF_BASE\/tmp"/' jboss-fuse/bin/karaf
-sed -i -e 's/-Djava.io.tmpdir="$KARAF_DATA\/tmp"/-Djava.io.tmpdir="$KARAF_BASE\/tmp"/' jboss-fuse/bin/fuse
-sed -i -e 's/-Djava.io.tmpdir="$KARAF_DATA\/tmp"/-Djava.io.tmpdir="$KARAF_BASE\/tmp"/' jboss-fuse/bin/client
-sed -i -e 's/-Djava.io.tmpdir="$KARAF_DATA\/tmp"/-Djava.io.tmpdir="$KARAF_BASE\/tmp"/' jboss-fuse/bin/admin
-sed -i -e 's/${karaf.data}\/generated-bundles/${karaf.base}\/tmp\/generated-bundles/' jboss-fuse/etc/org.apache.felix.fileinstall-deploy.cfg
+#mv jboss-fuse/data/tmp jboss-fuse/tmp
+#echo '
+#org.osgi.framework.storage=${karaf.base}/tmp/cache
+#'>> jboss-fuse/etc/config.properties
+#sed -i -e 's/-Djava.io.tmpdir="$KARAF_DATA\/tmp"/-Djava.io.tmpdir="$KARAF_BASE\/tmp"/' jboss-fuse/bin/karaf
+#sed -i -e 's/-Djava.io.tmpdir="$KARAF_DATA\/tmp"/-Djava.io.tmpdir="$KARAF_BASE\/tmp"/' jboss-fuse/bin/fuse
+#sed -i -e 's/-Djava.io.tmpdir="$KARAF_DATA\/tmp"/-Djava.io.tmpdir="$KARAF_BASE\/tmp"/' jboss-fuse/bin/client
+#sed -i -e 's/-Djava.io.tmpdir="$KARAF_DATA\/tmp"/-Djava.io.tmpdir="$KARAF_BASE\/tmp"/' jboss-fuse/bin/admin
+#sed -i -e 's/${karaf.data}\/generated-bundles/${karaf.base}\/tmp\/generated-bundles/' jboss-fuse/etc/org.apache.felix.fileinstall-deploy.cfg
 
 # lets remove the karaf.delay.console=true to disable the progress bar
-sed -i -e 's/karaf.delay.console=true/karaf.delay.console=false/' jboss-fuse/etc/config.properties 
-echo '
-# Root logger
-log4j.rootLogger=INFO, stdout, osgi:*VmLogAppender
-log4j.throwableRenderer=org.apache.log4j.OsgiThrowableRenderer
+#sed -i -e 's/karaf.delay.console=true/karaf.delay.console=false/' jboss-fuse/etc/config.properties 
+#echo '
+## Root logger
+#log4j.rootLogger=INFO, stdout, osgi:*VmLogAppender
+#log4j.throwableRenderer=org.apache.log4j.OsgiThrowableRenderer
 
 # CONSOLE appender not used by default
-log4j.appender.stdout=org.apache.log4j.ConsoleAppender
-log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
-log4j.appender.stdout.layout.ConversionPattern=%d{ABSOLUTE} | %-5.5p | %-16.16t | %-32.32c{1} | %X{bundle.id} - %X{bundle.name} - %X{bundle.version} | %m%n
-' > jboss-fuse/etc/org.ops4j.pax.logging.cfg
+#log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+#log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+#log4j.appender.stdout.layout.ConversionPattern=%d{ABSOLUTE} | %-5.5p | %-16.16t | %-32.32c{1} | %X{bundle.id} - %X{bundle.name} - %X{bundle.version} | %m%n
+#' > jboss-fuse/etc/org.ops4j.pax.logging.cfg
 
 echo '
 bind.address=0.0.0.0

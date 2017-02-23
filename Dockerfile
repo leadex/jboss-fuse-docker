@@ -4,8 +4,8 @@ FROM jboss/base-jdk:7
 MAINTAINER Hiram Chirino <hchirino@redhat.com>
 
 # Set the FUSE_VERSION env variable
-ENV FUSE_VERSION 6.3.0.redhat-187
-ENV FUSE_ARTIFACT_ID jboss-fuse-karaf
+ENV FUSE_VERSION 6.2.0.redhat-143-p1
+ENV FUSE_ARTIFACT_ID jboss-fuse-pre-patched
 # If the container is launched with re-mapped ports, these ENV vars should
 # be set to the remapped values.
 ENV FUSE_PUBLIC_OPENWIRE_PORT 61616
