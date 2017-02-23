@@ -28,10 +28,10 @@ EXPOSE 8181 8101 1099 44444 61616 1883 5672 61613 61617 8883 5671 61614
 #
 # The following directories can hold config/data, so lets suggest the user
 # mount them as volumes.
-VOLUME /opt/jboss/jboss-fuse/bin
-VOLUME /opt/jboss/jboss-fuse/etc
-VOLUME /opt/jboss/jboss-fuse/data
-VOLUME /opt/jboss/jboss-fuse/deploy
+#VOLUME /opt/jboss/jboss-fuse/bin
+#VOLUME /opt/jboss/jboss-fuse/etc
+#VOLUME /opt/jboss/jboss-fuse/data
+#VOLUME /opt/jboss/jboss-fuse/deploy
 
 # lets default to the jboss-fuse dir so folks can more easily navigate to around the server install
 WORKDIR /opt/jboss/jboss-fuse
